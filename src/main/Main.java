@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import model.*;
 
@@ -8,18 +9,25 @@ public class Main {
 	/*
 	 * Code here
 	 * */
-	workers;
+	public static ArrayList<Worker> workers = new ArrayList<Worker>();
 	
 	public static void trigger(Worker w){
 		/*
 		 * Code here
 		 * */
+		if (w instanceof QualityChecker) ((QualityChecker)w).increaseStress();
 	}
 	
 	public static void produce(){
 		/*
 		 * Code here
 		 * */
+		Iterator<Worker> it = workers.iterator();
+		while (it.hasNext()) {
+			Worker s = it.next();
+			s.work();
+			if (s instanceof QualityChecker) ((QualityChecker) s).increaseStress();
+		}
 	}
 
 	public static void main(String[] args) {
